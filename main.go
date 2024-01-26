@@ -33,8 +33,9 @@ func main() {
 	//create the base folder with project name
 	generators.GenerateBaseFolder(projectName)
 	// create all the internal folders
-	generators.GenerateSupportingFolders(projectName,projectType)
+	generators.GenerateSupportingFolders(projectName, projectType)
 	//running go mod init
+	defer functions.InstallRouters(projectType)
 	defer functions.InitializeTheProject(githubLink, projectName)
 	generators.GenerateAllBaseFiles(projectType, projectName)
 
