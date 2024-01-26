@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/joe-l-mathew/go-base-gen.git/functions"
+	"github.com/joe-l-mathew/go-base-gen.git/generators"
 )
 
 func main() {
@@ -29,5 +31,24 @@ func main() {
 	//select db type
 	dbtype := functions.SelectDbtype()
 	fmt.Println(dbtype)
+	generators.GenerateBaseFolder(projectName)
+	generators.GenerateSupportingFolders(projectName)
+	templates := []string{
+		"templates/.env.tmpl",
+		"templates/Dockerfile.tmpl",
+		"templates/" + projectType + "/main.go.tmpl",
+	}
+
+	for _, templatePath := range templates {
+		fmt.Println(templatePath + "template path")
+		// Generate the output path by replacing .tmpl with the corresponding file extension
+		// outputPath := strings.TrimSuffix(templatePath, ".tmpl")
+		err := generators.GenerateFile(templatePath, projectName)
+		if err != nil {
+			fmt.Printf("Error generating file: %s\n", err)
+			os.Exit(1)
+		}
+	}
+	functions.InitializeTheProject(githubLink, projectName)
 
 }

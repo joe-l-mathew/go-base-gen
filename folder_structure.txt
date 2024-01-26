@@ -1,0 +1,24 @@
+/mywebproject
+|-- main.go
+|-- go.mod
+|-- go.sum
+|-- /handlers
+|   |-- handlers.go
+|-- /templates
+|   |-- index.html
+|-- /static
+|   |-- /css
+|       |-- style.css
+|   |-- /js
+|       |-- script.js
+|-- /middleware
+|   |-- middleware.go
+|-- /models
+|   |-- models.go
+|-- /routes
+|   |-- routes.go
+|-- /config
+|   |-- config.go
+|-- Dockerfile
+|-- .env
+|-- README.md
