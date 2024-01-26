@@ -19,17 +19,15 @@ func main() {
 		return
 	}
 	//ask for project github link
-	githubLink := functions.GetUserInput("Enter your gihub project link")
+	githubLink := functions.GetUserInput("Enter your gihub project link or mod name")
 	if githubLink == "" {
 		fmt.Println("gihub project link can't be empty\nExiting...")
 		return
 	}
 	//ask for project type
 	projectType := functions.SelectProjectType()
-	fmt.Println(projectType)
 	//select db type
-	dbtype := functions.SelectDbtype()
-	fmt.Println(dbtype)
+	// dbtype := functions.SelectDbtype()
 	//create the base folder with project name
 	generators.GenerateBaseFolder(projectName)
 	// create all the internal folders
