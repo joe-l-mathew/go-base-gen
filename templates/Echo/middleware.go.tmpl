@@ -1,0 +1,22 @@
+package middleware
+
+import (
+	"github.com/labstack/echo/v4"
+	"net/http"
+)
+
+// CustomMiddleware is a middleware function for Echo.
+func CustomMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		// Check for a specific header in the request
+		headerValue := c.Request().Header.Get("X-Custom-Header")
+
+		if headerValue == "" {
+			// If the header is not present, respond with an error
+			return c.JSON(http.StatusUnauthorized, map[string]string{"error": "Unauthorized. X-Custom-Header is missing."})
+		}
+
+		// Header is present, continue with the request
+		return next(c)
+	}
+}

@@ -1,0 +1,21 @@
+package routes
+
+import (
+	"github.com/gofiber/fiber/v2"
+	"{{.ProjectPath}}/middleware"
+)
+
+// SetupRoutes configures the routes for the Fiber application.
+func SetupRoutes(app *fiber.App) {
+	// Use the custom middleware
+	app.Use(middleware.CustomMiddleware)
+
+	// Define routes
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{"message": "Welcome to Fiber!"})
+	})
+
+	app.Get("/hello", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{"message": "Hello, Fiber!"})
+	})
+}

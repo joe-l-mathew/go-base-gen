@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/joe-l-mathew/go-base-gen.git/functions"
 	"github.com/joe-l-mathew/go-base-gen.git/generators"
@@ -31,24 +30,12 @@ func main() {
 	//select db type
 	dbtype := functions.SelectDbtype()
 	fmt.Println(dbtype)
+	//create the base folder with project name
 	generators.GenerateBaseFolder(projectName)
-	generators.GenerateSupportingFolders(projectName)
-	templates := []string{
-		"templates/.env.tmpl",
-		"templates/Dockerfile.tmpl",
-		"templates/" + projectType + "/main.go.tmpl",
-	}
-
-	for _, templatePath := range templates {
-		fmt.Println(templatePath + "template path")
-		// Generate the output path by replacing .tmpl with the corresponding file extension
-		// outputPath := strings.TrimSuffix(templatePath, ".tmpl")
-		err := generators.GenerateFile(templatePath, projectName)
-		if err != nil {
-			fmt.Printf("Error generating file: %s\n", err)
-			os.Exit(1)
-		}
-	}
-	functions.InitializeTheProject(githubLink, projectName)
+	// create all the internal folders
+	generators.GenerateSupportingFolders(projectName,projectType)
+	//running go mod init
+	defer functions.InitializeTheProject(githubLink, projectName)
+	generators.GenerateAllBaseFiles(projectType, projectName)
 
 }

@@ -1,0 +1,24 @@
+package middleware
+
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+// CustomMiddleware is a middleware function that checks for a specific header.
+func CustomMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Check for a specific header in the request
+		headerValue := c.GetHeader("X-Custom-Header")
+
+		if headerValue == "" {
+			// If the header is not present, respond with an error
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized. X-Custom-Header is missing."})
+			c.Abort()
+			return
+		}
+
+		// Header is present, continue with the request
+		c.Next()
+	}
+}

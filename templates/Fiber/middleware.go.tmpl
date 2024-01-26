@@ -1,0 +1,20 @@
+package middleware
+
+import (
+	"github.com/gofiber/fiber/v2"
+	"net/http"
+)
+
+// CustomMiddleware is a middleware function for Fiber.
+func CustomMiddleware(c *fiber.Ctx) error {
+	// Check for a specific header in the request
+	headerValue := c.Get("X-Custom-Header")
+
+	if headerValue == "" {
+		// If the header is not present, respond with an error
+		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{"error": "Unauthorized. X-Custom-Header is missing."})
+	}
+
+	// Header is present, continue with the request
+	return c.Next()
+}

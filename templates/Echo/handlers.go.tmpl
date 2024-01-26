@@ -1,0 +1,16 @@
+package handlers
+
+import (
+	"github.com/labstack/echo/v4"
+	"net/http"
+)
+
+// WelcomeHandler is a handler function for the welcome route in Echo.
+func WelcomeHandler(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]string{"message": "Welcome Handler in Echo!"})
+}
+
+// HelloHandler is a handler function for the hello route in Echo.
+func HelloHandler(c echo.Context) error {
+	return c.JSON(http.StatusOK, map[string]string{"message": "Hello Handler in Echo!"})
+}

@@ -1,0 +1,21 @@
+package routes
+
+import (
+	"github.com/gin-gonic/gin"
+	"{{.ProjectPath}}/middleware"
+)
+
+// SetupRoutes configures the routes for the Gin application.
+func SetupRoutes(router *gin.Engine) {
+	// Use the custom middleware
+	router.Use(middleware.CustomMiddleware())
+
+	// Define routes
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "Welcome to Gin!"})
+	})
+
+	router.GET("/hello", func(c *gin.Context) {
+		c.JSON(200, gin.H{"message": "Hello, Gin!"})
+	})
+}

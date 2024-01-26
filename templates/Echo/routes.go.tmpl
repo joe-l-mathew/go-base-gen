@@ -1,0 +1,22 @@
+package routes
+
+import (
+	"github.com/labstack/echo/v4"
+	"net/http"
+	"{{.ProjectPath}}/middleware"
+)
+
+// SetupRoutes configures the routes for the Echo application.
+func SetupRoutes(e *echo.Echo) {
+	// Use the custom middleware
+	e.Use(middleware.CustomMiddleware)
+
+	// Define routes
+	e.GET("/", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{"message": "Welcome to Echo!"})
+	})
+
+	e.GET("/hello", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{"message": "Hello, Echo!"})
+	})
+}
